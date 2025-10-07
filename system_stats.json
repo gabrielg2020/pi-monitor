@@ -1,130 +1,210 @@
 [
   {
-    "timestamp": "2025-10-07 23:57:19",
-    "cpu_percent": 10.3,
+    "timestamp": "2025-10-07 23:30:57",
+    "cpu_percent": 11.3,
     "memory": {
-      "percent": 76.8,
-      "used_gb": 10.16,
-      "total_gb": 32.0,
-      "available_gb": 7.44
+      "percent": 28.1,
+      "used_gb": 4.14,
+      "total_gb": 15.6,
+      "available_gb": 11.22
     },
     "disk": {
-      "percent": 2.4,
-      "used_gb": 11.87,
-      "free_gb": 485.97,
-      "total_gb": 926.35
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
     }
   },
   {
-    "timestamp": "2025-10-07 23:57:25",
-    "cpu_percent": 15.4,
+    "timestamp": "2025-10-07 23:31:03",
+    "cpu_percent": 1.4,
     "memory": {
-      "percent": 77.4,
-      "used_gb": 10.17,
-      "total_gb": 32.0,
-      "available_gb": 7.25
+      "percent": 28.1,
+      "used_gb": 4.14,
+      "total_gb": 15.6,
+      "available_gb": 11.21
     },
     "disk": {
-      "percent": 2.4,
-      "used_gb": 11.87,
-      "free_gb": 485.97,
-      "total_gb": 926.35
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
     }
   },
   {
-    "timestamp": "2025-10-07 23:57:31",
-    "cpu_percent": 28.2,
+    "timestamp": "2025-10-07 23:31:09",
+    "cpu_percent": 0.7,
     "memory": {
-      "percent": 77.3,
-      "used_gb": 10.18,
-      "total_gb": 32.0,
-      "available_gb": 7.25
+      "percent": 28.1,
+      "used_gb": 4.14,
+      "total_gb": 15.6,
+      "available_gb": 11.21
     },
     "disk": {
-      "percent": 2.4,
-      "used_gb": 11.87,
-      "free_gb": 485.97,
-      "total_gb": 926.35
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
     }
   },
   {
-    "timestamp": "2025-10-07 23:57:37",
-    "cpu_percent": 21.2,
+    "timestamp": "2025-10-07 23:31:15",
+    "cpu_percent": 1.4,
     "memory": {
-      "percent": 77.1,
-      "used_gb": 10.1,
-      "total_gb": 32.0,
-      "available_gb": 7.33
+      "percent": 28.2,
+      "used_gb": 4.15,
+      "total_gb": 15.6,
+      "available_gb": 11.2
     },
     "disk": {
-      "percent": 2.4,
-      "used_gb": 11.87,
-      "free_gb": 485.97,
-      "total_gb": 926.35
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
     }
   },
   {
-    "timestamp": "2025-10-07 23:57:43",
-    "cpu_percent": 14.4,
+    "timestamp": "2025-10-07 23:31:21",
+    "cpu_percent": 0.8,
     "memory": {
-      "percent": 77.1,
-      "used_gb": 10.15,
-      "total_gb": 32.0,
-      "available_gb": 7.33
+      "percent": 28.2,
+      "used_gb": 4.15,
+      "total_gb": 15.6,
+      "available_gb": 11.2
     },
     "disk": {
-      "percent": 2.4,
-      "used_gb": 11.87,
-      "free_gb": 485.97,
-      "total_gb": 926.35
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
     }
   },
   {
-    "timestamp": "2025-10-07 23:57:49",
-    "cpu_percent": 8.7,
+    "timestamp": "2025-10-07 23:31:27",
+    "cpu_percent": 0.7,
     "memory": {
-      "percent": 76.9,
-      "used_gb": 10.09,
-      "total_gb": 32.0,
-      "available_gb": 7.39
+      "percent": 28.2,
+      "used_gb": 4.15,
+      "total_gb": 15.6,
+      "available_gb": 11.21
     },
     "disk": {
-      "percent": 2.4,
-      "used_gb": 11.87,
-      "free_gb": 485.97,
-      "total_gb": 926.35
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
     }
   },
   {
-    "timestamp": "2025-10-07 23:57:55",
-    "cpu_percent": 20.5,
+    "timestamp": "2025-10-07 23:31:33",
+    "cpu_percent": 2.6,
     "memory": {
-      "percent": 76.7,
-      "used_gb": 10.02,
-      "total_gb": 32.0,
-      "available_gb": 7.46
+      "percent": 28.2,
+      "used_gb": 4.15,
+      "total_gb": 15.6,
+      "available_gb": 11.2
     },
     "disk": {
-      "percent": 2.4,
-      "used_gb": 11.87,
-      "free_gb": 485.97,
-      "total_gb": 926.35
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
     }
   },
   {
-    "timestamp": "2025-10-07 23:58:01",
-    "cpu_percent": 20.3,
+    "timestamp": "2025-10-07 23:31:39",
+    "cpu_percent": 0.4,
     "memory": {
-      "percent": 77.2,
-      "used_gb": 10.16,
-      "total_gb": 32.0,
-      "available_gb": 7.29
+      "percent": 28.1,
+      "used_gb": 4.14,
+      "total_gb": 15.6,
+      "available_gb": 11.21
     },
     "disk": {
-      "percent": 2.4,
-      "used_gb": 11.87,
-      "free_gb": 485.97,
-      "total_gb": 926.35
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
+    }
+  },
+  {
+    "timestamp": "2025-10-07 23:31:45",
+    "cpu_percent": 1.3,
+    "memory": {
+      "percent": 28.1,
+      "used_gb": 4.14,
+      "total_gb": 15.6,
+      "available_gb": 11.21
+    },
+    "disk": {
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
+    }
+  },
+  {
+    "timestamp": "2025-10-07 23:31:51",
+    "cpu_percent": 0.4,
+    "memory": {
+      "percent": 28.1,
+      "used_gb": 4.15,
+      "total_gb": 15.6,
+      "available_gb": 11.21
+    },
+    "disk": {
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
+    }
+  },
+  {
+    "timestamp": "2025-10-07 23:31:57",
+    "cpu_percent": 0.7,
+    "memory": {
+      "percent": 28.1,
+      "used_gb": 4.14,
+      "total_gb": 15.6,
+      "available_gb": 11.21
+    },
+    "disk": {
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
+    }
+  },
+  {
+    "timestamp": "2025-10-07 23:32:03",
+    "cpu_percent": 1.7,
+    "memory": {
+      "percent": 28.1,
+      "used_gb": 4.14,
+      "total_gb": 15.6,
+      "available_gb": 11.21
+    },
+    "disk": {
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
+    }
+  },
+  {
+    "timestamp": "2025-10-07 23:32:09",
+    "cpu_percent": 0.6,
+    "memory": {
+      "percent": 28.1,
+      "used_gb": 4.14,
+      "total_gb": 15.6,
+      "available_gb": 11.21
+    },
+    "disk": {
+      "percent": 28.3,
+      "used_gb": 80.35,
+      "free_gb": 203.35,
+      "total_gb": 298.91
     }
   }
 ]
