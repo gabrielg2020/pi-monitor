@@ -1,4 +1,4 @@
-# pi-monitor
+# monitor-agent
 
 A python script that records compute usage.
 
