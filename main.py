@@ -42,29 +42,27 @@ def display_stats():
     memory = get_memory_usage()
     disk = get_disk_usage()
 
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    now = datetime.now()
+    timestamp_str = now.strftime('%Y-%m-%d %H:%M:%S')
 
     # Create record for JSON
     record = {
-        'timestamp': timestamp,
-        'cpu_percent': round(cpu, 1),
-        'memory': {
-            'percent': round(memory['percent'], 1),
-            'used_gb': round(memory['used_gb'], 2),
-            'total_gb': round(memory['total_gb'], 2),
-            'available_gb': round(memory['available_gb'], 2)
-        },
-        'disk': {
-            'percent': round(disk['percent'], 1),
-            'used_gb': round(disk['used_gb'], 2),
-            'free_gb': round(disk['free_gb'], 2),
-            'total_gb': round(disk['total_gb'], 2)
-        }
+        'host_id': int(os.getenv('HOSTNAME')),
+        "timestamp": int(now.timestamp()),
+        "cpu_usage": round(cpu, 1),
+        "memory_usage_percent": round(memory['percent'], 1),
+        "memory_total_bytes": int(memory['total_gb'] * 1024 ** 3),
+        "memory_used_bytes": int(memory['used_gb'] * 1024 ** 3),
+        "memory_available_bytes": int(memory['available_gb'] * 1024 ** 3),
+        "disk_usage_percent": round(disk['percent'], 1),
+        "disk_total_bytes": int(disk['total_gb'] * 1024 ** 3),
+        "disk_used_bytes": int(disk['used_gb'] * 1024 **3),
+        "disk_available_bytes": int(disk['free_gb'] * 1024 **3)
     }
 
-    print(f"\n{'='*60}")
-    print(f"System Monitor - {timestamp}")
-    print(f"{'='*60}")
+    print(f"\n{'=' * 60}")
+    print(f"System Monitor - {timestamp_str}")
+    print(f"{'=' * 60}")
 
     print(f"\n🔧 CPU Usage: {cpu:.1f}%")
 
@@ -81,16 +79,17 @@ def display_stats():
     return record
 
 
-def send_push_request(records, api_address):
+def send_push_request(records, address):
     """Push data to remote API"""
-    hostname = os.getenv('HOSTNAME')
-    url = f"{api_address}/api/update_stats/{hostname}"
+    url = f"{address}/api/push"
+    print(f"Pushing data to {url} ...")
     try:
-        response = requests.post(url, json={'records': list(records)})
+        response = requests.post(url, json={'record': records})
         if response.status_code == 200:
             print("Data successfully pushed to remote API.")
         else:
             print(f"Failed to push data. Status code: {response.status_code}")
+            print(f"Response: {response.text}")
     except requests.RequestException as e:
         print(f"Error pushing data to API: {e}")
 
@@ -100,22 +99,19 @@ def main():
     """Main monitoring loop"""
     load_dotenv()
     api_address = os.getenv('API_ADDRESS', 'http://localhost:8000')
-    print(f"API Address: {api_address}")
+    port = os.getenv('PORT', 8080)
+    address = f"{api_address}:{port}"
+    print(f"API Address: {address}")
     print("Raspberry Pi System Monitor")
     print("Press Ctrl+C to stop\n")
-
-    # Use deque to automatically maintain last 100 records
-    records = deque(maxlen=100)
 
     try:
         while True:
             record = display_stats()
-            records.append(record)
-            send_push_request(records, api_address)
+            send_push_request(record, address)
             time.sleep(5)  # Update every 5 seconds
     except KeyboardInterrupt:
         print("\n\nMonitoring stopped.")
-        print(f"Final data saved to system_stats.json ({len(records)} records)")
 
 
 if __name__ == "__main__":
