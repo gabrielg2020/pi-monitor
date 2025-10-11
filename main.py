@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-import psutil
-import time
 import os
-import requests
+import time
 from datetime import datetime
-from collections import deque
-from dotenv import load_dotenv, dotenv_values
+
+import psutil
+import requests
+from dotenv import load_dotenv
 
 
 def get_cpu_usage():
