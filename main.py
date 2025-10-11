@@ -2,9 +2,11 @@
 
 import psutil
 import time
-import json
+import os
+import requests
 from datetime import datetime
 from collections import deque
+from dotenv import load_dotenv, dotenv_values
 
 
 def get_cpu_usage():
@@ -79,17 +81,26 @@ def display_stats():
     return record
 
 
-def save_to_json(records, filename='system_stats.json'):
-    """Save records to JSON file"""
+def send_push_request(records, api_address):
+    """Push data to remote API"""
+    hostname = os.getenv('HOSTNAME')
+    url = f"{api_address}/api/update_stats/{hostname}"
     try:
-        with open(filename, 'w') as f:
-            json.dump(list(records), f, indent=2)
-    except Exception as e:
-        print(f"Error saving to JSON: {e}")
+        response = requests.post(url, json={'records': list(records)})
+        if response.status_code == 200:
+            print("Data successfully pushed to remote API.")
+        else:
+            print(f"Failed to push data. Status code: {response.status_code}")
+    except requests.RequestException as e:
+        print(f"Error pushing data to API: {e}")
+
 
 
 def main():
     """Main monitoring loop"""
+    load_dotenv()
+    api_address = os.getenv('API_ADDRESS', 'http://localhost:8000')
+    print(f"API Address: {api_address}")
     print("Raspberry Pi System Monitor")
     print("Press Ctrl+C to stop\n")
 
@@ -100,7 +111,7 @@ def main():
         while True:
             record = display_stats()
             records.append(record)
-            save_to_json(records)
+            send_push_request(records, api_address)
             time.sleep(5)  # Update every 5 seconds
     except KeyboardInterrupt:
         print("\n\nMonitoring stopped.")
