@@ -22,3 +22,4 @@ jobs:
           source: "main.py"
           django: false
           mypy-options: "--ignore-missing-imports --show-error-codes"
+          isort-options: "--profile black"
