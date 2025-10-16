@@ -19,7 +19,8 @@ jobs:
       - name: Run Lint
         uses: sunnysid3up/python-linter@master
         with:
-          source: "main.py"
+          source: "."
           django: false
           mypy-options: "--ignore-missing-imports --show-error-codes"
-          isort-options: "--profile black"
+          pylint-options: "--ignore=__init__.py"
+          isort-options: "--check-only --profile black"
