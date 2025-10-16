@@ -1,0 +1,20 @@
+name: Python Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  python-lint:
+    name: Lint Python Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Run Lint
+        uses: sunnysid3up/python-linter@master

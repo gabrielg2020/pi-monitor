@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  go:
+    name: Python Workflow
+    uses: ./.github/workflows/python.yml
