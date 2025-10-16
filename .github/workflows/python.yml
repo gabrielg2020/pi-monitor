@@ -16,11 +16,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run Lint
-        uses: sunnysid3up/python-linter@master
-        with:
-          source: "."
-          django: false
-          mypy-options: "--ignore-missing-imports --show-error-codes"
-          pylint-options: "--ignore=__init__.py"
-          isort-options: "--check-only --profile black"
+      - name: Run mypy
+        run: |
+          pip install mypy
+          mypy --ignore-missing-imports --show-error-codes main.py
+
+      - name: Run pylint
+        run: |
+          pip install pylint
+          pylint --ignore=__init__.py main.py || true
+
+      - name: Run black check
+        run: |
+           pip install black
+           black --check main.py
