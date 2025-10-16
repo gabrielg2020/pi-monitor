@@ -47,7 +47,7 @@ def display_stats():
 
     # Create record for JSON
     record = {
-        'host_id': int(os.getenv('HOSTNAME')),
+        'host_id': int(os.getenv('HOST_ID')),
         "timestamp": int(now.timestamp()),
         "cpu_usage": round(cpu, 1),
         "memory_usage_percent": round(memory['percent'], 1),
