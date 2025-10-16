@@ -18,7 +18,7 @@ jobs:
 
       - name: Run mypy
         run: |
-          pip install mypy
+          pip install mypy types-requests
           mypy --ignore-missing-imports --show-error-codes main.py
 
       - name: Run pylint
