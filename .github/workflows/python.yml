@@ -18,3 +18,6 @@ jobs:
 
       - name: Run Lint
         uses: sunnysid3up/python-linter@master
+        with:
+          django: false
+          mypy-options: "--ignore-missing-imports --show-error-codes"
