@@ -18,21 +18,21 @@ def get_memory_usage():
     """Get memory usage details"""
     mem = psutil.virtual_memory()
     return {
-        'percent': mem.percent,
-        'used_gb': mem.used / (1024**3),
-        'total_gb': mem.total / (1024**3),
-        'available_gb': mem.available / (1024**3)
+        "percent": mem.percent,
+        "used_gb": mem.used / (1024**3),
+        "total_gb": mem.total / (1024**3),
+        "available_gb": mem.available / (1024**3),
     }
 
 
-def get_disk_usage(path='/'):
+def get_disk_usage(path="/"):
     """Get disk usage for specified path"""
     disk = psutil.disk_usage(path)
     return {
-        'percent': disk.percent,
-        'used_gb': disk.used / (1024**3),
-        'free_gb': disk.free / (1024**3),
-        'total_gb': disk.total / (1024**3)
+        "percent": disk.percent,
+        "used_gb": disk.used / (1024**3),
+        "free_gb": disk.free / (1024**3),
+        "total_gb": disk.total / (1024**3),
     }
 
 
@@ -43,21 +43,21 @@ def display_stats():
     disk = get_disk_usage()
 
     now = datetime.now()
-    timestamp_str = now.strftime('%Y-%m-%d %H:%M:%S')
+    timestamp_str = now.strftime("%Y-%m-%d %H:%M:%S")
 
     # Create record for JSON
     record = {
-        'host_id': int(os.getenv('HOSTNAME')),
+        "host_id": int(os.getenv("HOST_ID")),
         "timestamp": int(now.timestamp()),
         "cpu_usage": round(cpu, 1),
-        "memory_usage_percent": round(memory['percent'], 1),
-        "memory_total_bytes": int(memory['total_gb'] * 1024 ** 3),
-        "memory_used_bytes": int(memory['used_gb'] * 1024 ** 3),
-        "memory_available_bytes": int(memory['available_gb'] * 1024 ** 3),
-        "disk_usage_percent": round(disk['percent'], 1),
-        "disk_total_bytes": int(disk['total_gb'] * 1024 ** 3),
-        "disk_used_bytes": int(disk['used_gb'] * 1024 **3),
-        "disk_available_bytes": int(disk['free_gb'] * 1024 **3)
+        "memory_usage_percent": round(memory["percent"], 1),
+        "memory_total_bytes": int(memory["total_gb"] * 1024**3),
+        "memory_used_bytes": int(memory["used_gb"] * 1024**3),
+        "memory_available_bytes": int(memory["available_gb"] * 1024**3),
+        "disk_usage_percent": round(disk["percent"], 1),
+        "disk_total_bytes": int(disk["total_gb"] * 1024**3),
+        "disk_used_bytes": int(disk["used_gb"] * 1024**3),
+        "disk_available_bytes": int(disk["free_gb"] * 1024**3),
     }
 
     print(f"\n{'=' * 60}")
@@ -84,7 +84,7 @@ def send_push_request(records, address):
     url = f"{address}/api/push"
     print(f"Pushing data to {url} ...")
     try:
-        response = requests.post(url, json={'record': records})
+        response = requests.post(url, json={"record": records})
         if response.status_code == 200:
             print("Data successfully pushed to remote API.")
         else:
@@ -94,12 +94,11 @@ def send_push_request(records, address):
         print(f"Error pushing data to API: {e}")
 
 
-
 def main():
     """Main monitoring loop"""
     load_dotenv()
-    api_address = os.getenv('API_ADDRESS', 'http://localhost:8000')
-    port = os.getenv('PORT', 8080)
+    api_address = os.getenv("API_ADDRESS", "http://localhost:8000")
+    port = os.getenv("PORT", 8080)
     address = f"{api_address}:{port}"
     print(f"API Address: {address}")
     print("Raspberry Pi System Monitor")

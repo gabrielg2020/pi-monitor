@@ -1,0 +1,32 @@
+name: Python Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  python-lint:
+    name: Lint Python Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Run mypy
+        run: |
+          pip install mypy types-requests
+          mypy --ignore-missing-imports --show-error-codes main.py
+
+      - name: Run pylint
+        run: |
+          pip install pylint
+          pylint --ignore=__init__.py main.py || true
+
+      - name: Run black check
+        run: |
+           pip install black
+           black --check main.py
