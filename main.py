@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import socket
 import time
 
 import psutil
@@ -35,7 +36,7 @@ def get_disk_usage(path="/"):
     }
 
 
-def display_stats():
+def display_stats(host_id):
     """Display system statistics"""
     cpu = get_cpu_usage()
     memory = get_memory_usage()
@@ -44,7 +45,7 @@ def display_stats():
 
     # Create record for JSON
     record = {
-        "host_id": int(os.getenv("HOST_ID")),
+        "host_id": int(host_id),
         "timestamp": int(timestamp),
         "cpu_usage": round(cpu, 1),
         "memory_usage_percent": round(memory["percent"], 1),
@@ -76,8 +77,9 @@ def display_stats():
     return record
 
 
-def send_push_request(records, address):
+def post_metrics(records, address):
     """Push data to remote API"""
+    address += "/metrics"
     print(f"Pushing data to {address} ...")
     try:
         response = requests.post(address, json={"record": records})
@@ -88,6 +90,33 @@ def send_push_request(records, address):
             print(f"Response: {response.text}")
     except requests.RequestException as e:
         print(f"Error pushing data to API: {e}")
+
+
+def post_host(address):
+    """Register host with remote API"""
+    address += "/hosts"
+    print(os.getenv("HOST_IP"))
+    host_data = {
+        "hostname": socket.gethostname(),
+        "ip_address": os.getenv("HOST_IP"),
+        "role": os.getenv("HOST_ROLE"),
+    }
+
+    payload = {"host": host_data}
+
+    print(f"Registering host at {address} ...")
+    try:
+        response = requests.post(address, json=payload)
+        if response.status_code == 201:
+            host_id = response.json().get("id")
+            print(f"Host registered with ID: {host_id}")
+            return host_id
+        else:
+            print(f"Failed to register host. Status code: {response.status_code}")
+            print(f"Response: {response.text}")
+    except requests.RequestException as e:
+        print(f"Error registering host to API: {e}")
+    return None
 
 
 def main():
@@ -103,10 +132,15 @@ def main():
     print("Raspberry Pi System Monitor")
     print("Press Ctrl+C to stop\n")
 
+    host_id = post_host(api_address)
+    if host_id is None:
+        print("Exiting due to host registration failure.")
+        return
+
     try:
         while True:
-            record = display_stats()
-            send_push_request(record, api_address)
+            record = display_stats(host_id)
+            post_metrics(record, api_address)
             time.sleep(5)  # Update every 5 seconds
     except KeyboardInterrupt:
         print("\n\nMonitoring stopped.")
