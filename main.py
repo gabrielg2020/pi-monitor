@@ -96,7 +96,9 @@ def main():
     port = os.getenv("PORT", 8080)
     version = os.getenv("API_VERSION", "v1")
     print(f"Starting monitoring on port {port} and version {version}")
-    api_address = os.getenv("API_ADDRESS", "https://localhost:{PORT}").format(PORT=port, API_VERSION=version)
+    api_address = os.getenv("API_ADDRESS", "https://localhost:{PORT}").format(
+        PORT=port, API_VERSION=version
+    )
     print(f"API Address: {api_address}")
     print("Raspberry Pi System Monitor")
     print("Press Ctrl+C to stop\n")
