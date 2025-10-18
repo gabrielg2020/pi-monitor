@@ -2,7 +2,6 @@
 
 import os
 import time
-from datetime import datetime
 
 import psutil
 import requests
@@ -41,14 +40,12 @@ def display_stats():
     cpu = get_cpu_usage()
     memory = get_memory_usage()
     disk = get_disk_usage()
-
-    now = datetime.now()
-    timestamp_str = now.strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = time.time()
 
     # Create record for JSON
     record = {
         "host_id": int(os.getenv("HOST_ID")),
-        "timestamp": int(now.timestamp()),
+        "timestamp": int(timestamp),
         "cpu_usage": round(cpu, 1),
         "memory_usage_percent": round(memory["percent"], 1),
         "memory_total_bytes": int(memory["total_gb"] * 1024**3),
@@ -61,7 +58,7 @@ def display_stats():
     }
 
     print(f"\n{'=' * 60}")
-    print(f"System Monitor - {timestamp_str}")
+    print(f"System Monitor - {timestamp}")
     print(f"{'=' * 60}")
 
     print(f"\n🔧 CPU Usage: {cpu:.1f}%")
@@ -81,11 +78,10 @@ def display_stats():
 
 def send_push_request(records, address):
     """Push data to remote API"""
-    url = f"{address}/api/push"
-    print(f"Pushing data to {url} ...")
+    print(f"Pushing data to {address} ...")
     try:
-        response = requests.post(url, json={"record": records})
-        if response.status_code == 200:
+        response = requests.post(address, json={"record": records})
+        if response.status_code == 201:
             print("Data successfully pushed to remote API.")
         else:
             print(f"Failed to push data. Status code: {response.status_code}")
@@ -97,17 +93,20 @@ def send_push_request(records, address):
 def main():
     """Main monitoring loop"""
     load_dotenv()
-    api_address = os.getenv("API_ADDRESS", "http://localhost:8000")
     port = os.getenv("PORT", 8080)
-    address = f"{api_address}:{port}"
-    print(f"API Address: {address}")
+    version = os.getenv("API_VERSION", "v1")
+    print(f"Starting monitoring on port {port} and version {version}")
+    api_address = os.getenv("API_ADDRESS", "https://localhost:{PORT}").format(
+        PORT=port, API_VERSION=version
+    )
+    print(f"API Address: {api_address}")
     print("Raspberry Pi System Monitor")
     print("Press Ctrl+C to stop\n")
 
     try:
         while True:
             record = display_stats()
-            send_push_request(record, address)
+            send_push_request(record, api_address)
             time.sleep(5)  # Update every 5 seconds
     except KeyboardInterrupt:
         print("\n\nMonitoring stopped.")
