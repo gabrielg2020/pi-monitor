@@ -91,6 +91,7 @@ def post_metrics(records, address):
     except requests.RequestException as e:
         print(f"Error pushing data to API: {e}")
 
+
 def post_host(address):
     """Register host with remote API"""
     address += "/hosts"
@@ -102,7 +103,7 @@ def post_host(address):
     }
 
     payload = {"host": host_data}
-    
+
     print(f"Registering host at {address} ...")
     try:
         response = requests.post(address, json=payload)
@@ -116,6 +117,7 @@ def post_host(address):
     except requests.RequestException as e:
         print(f"Error registering host to API: {e}")
     return None
+
 
 def main():
     """Main monitoring loop"""
