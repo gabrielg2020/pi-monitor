@@ -95,10 +95,14 @@ def post_metrics(records, address):
 def post_host(address):
     """Register host with remote API"""
     address += "/hosts"
-    print(os.getenv("HOST_IP"))
+    # Get IP used for outbound connections
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip_address = s.getsockname()[0]
+    s.close()
     host_data = {
         "hostname": socket.gethostname(),
-        "ip_address": os.getenv("HOST_IP"),
+        "ip_address": ip_address,
         "role": os.getenv("HOST_ROLE"),
     }
 
@@ -122,7 +126,7 @@ def post_host(address):
 def main():
     """Main monitoring loop"""
     load_dotenv()
-    port = os.getenv("PORT", 8080)
+    port = os.getenv("API_PORT", 8080)
     version = os.getenv("API_VERSION", "v1")
     print(f"Starting monitoring on port {port} and version {version}")
     api_address = os.getenv("API_ADDRESS", "https://localhost:{PORT}").format(
